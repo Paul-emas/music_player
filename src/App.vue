@@ -1,32 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Navbar />
+    <Wrapper>
+      <router-view />
+    </Wrapper>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 
-#nav {
-  padding: 30px;
+import Wrapper from "@/components/layouts/Wrapper.vue";
+import Navbar from "@/components/Navbar.vue";
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+@Component({
+  components: {
+    Wrapper,
+    Navbar,
+  },
+})
+export default class App extends Vue {}
+</script>
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+<style>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 </style>

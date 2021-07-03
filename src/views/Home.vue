@@ -1,18 +1,23 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    <Music />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { Component, Vue } from "vue-property-decorator";
+import Music from "@/components/music/Music.vue";
 
 @Component({
   components: {
-    HelloWorld,
+    Music,
   },
 })
 export default class Home extends Vue {}
 </script>
+
+<style lang="scss">
+.carousel-list {
+  box-shadow: none !important;
+}
+</style>
