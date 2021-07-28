@@ -11,12 +11,15 @@
 </template>
 
 <style lang="scss">
+body {
+  // overflow: hidden;
+}
 .wrapper {
-  background: #c7577d;
+  background: #0b0f30;
   width: 100%;
   height: 100vh;
   position: fixed;
-  overflow: hidden;
+  overflow: auto;
 
   &__relative {
     display: flex;
@@ -30,7 +33,6 @@
     width: 100%;
     height: 100vh;
     background-color: #0b0f30;
-    overflow-x: hidden;
   }
 
   &__content {
