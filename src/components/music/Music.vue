@@ -14,9 +14,7 @@
 
 <script lan>
 import { Component, Vue } from "vue-property-decorator";
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapActions, mapMutations } =
-  createNamespacedHelpers("music");
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 import TreadingMusic from "./TreadingMusic.vue";
 
@@ -26,21 +24,21 @@ import TreadingMusic from "./TreadingMusic.vue";
   },
   computed: {
     ...mapGetters({
-      trendingPlaylist: "trendingPlaylist",
-      marshMelloPlaylist: "marshMelloPlaylist",
-      kyoPlaylist: "kyoPlaylist",
-      isLoading: "isLoading",
+      trendingPlaylist: "music/trendingPlaylist",
+      marshMelloPlaylist: "music/marshMelloPlaylist",
+      kyoPlaylist: "music/kyoPlaylist",
+      isLoading: "music/isLoading",
     }),
   },
   methods: {
     ...mapActions({
-      getTrendingMusic: "getTrendingPlaylist",
-      getMarshMelloMusic: "getMarshMelloPlayList",
-      getKygoMusic: "getKygoPlayList",
+      getTrendingMusic: "music/getTrendingPlaylist",
+      getMarshMelloMusic: "music/getMarshMelloPlayList",
+      getKygoMusic: "music/getKygoPlayList",
     }),
 
     ...mapMutations({
-      setLoading: "setLoading",
+      setLoading: "music/setLoading",
     }),
   },
 })
@@ -55,7 +53,7 @@ export default class Music extends Vue {
     if (this.trendingPlaylist.tracks) {
       this.setupMuiscTrack();
     } else {
-      const res = await Promise.all([
+      await Promise.all([
         this.getTrendingMusic(),
         this.getMarshMelloMusic(),
         this.getKygoMusic(),

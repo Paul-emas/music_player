@@ -10,38 +10,37 @@
       </div>
     </div>
     <div v-else>
-      <!-- <router-link :to="{ path: `/player/${id}` }"> -->
-      <div class="music-card__image" @click="getSelectedTrack(id)">
-        <figure>
-          <div class="overlay">
-            <img src="../../assets/logo.png" alt="logo" class="bg" />
-          </div>
-          <img :src="imageUrl" alt="music-image-placeholder" />
-        </figure>
-      </div>
-      <div class="music-card__caption">
-        <h1>
-          {{ title.length > 20 ? `${title.substring(0, 20)}....` : title }}
-        </h1>
-        <p>
-          <span>🎵</span>
-          {{ artist.length > 20 ? `${artist.substring(0, 20)}..` : artist }}
-        </p>
-      </div>
-      <!-- </router-link> -->
+      <router-link :to="{ name: 'Player' }">
+        <div class="music-card__image" @click="getSelectedTrack(id)">
+          <figure>
+            <div class="overlay">
+              <img src="../../assets/logo.png" alt="logo" class="bg" />
+            </div>
+            <img :src="imageUrl" alt="music-image-placeholder" />
+          </figure>
+        </div>
+        <div class="music-card__caption">
+          <h1>
+            {{ title.length > 20 ? `${title.substring(0, 20)}....` : title }}
+          </h1>
+          <p>
+            <b-icon pack="fal" icon="music"></b-icon>
+            {{ artist.length > 20 ? `${artist.substring(0, 20)}..` : artist }}
+          </p>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
 
-
 <script lang="ts">
-import { Vue, Prop, Emit, Component } from "vue-property-decorator";
+import { Vue, Prop, Emit, Component } from 'vue-property-decorator';
 
 @Component
 export default class MusicCard extends Vue {
   @Prop({
     default:
-      "https://cdn.dribbble.com/users/3547568/screenshots/14395014/media/0b94c75b97182946d495f34c16eab987.jpg?compress=1&resize=400x300",
+      'https://cdn.dribbble.com/users/3547568/screenshots/14395014/media/0b94c75b97182946d495f34c16eab987.jpg?compress=1&resize=400x300',
   })
   imageUrl!: string;
   @Prop(String) title!: string;
@@ -49,7 +48,7 @@ export default class MusicCard extends Vue {
   @Prop(String) artist!: string;
   @Prop(Boolean) loading!: boolean;
 
-  @Emit("getSelectedTrack")
+  @Emit('getSelectedTrack')
   getSelectedTrack(id: any) {
     return id;
   }
@@ -63,6 +62,11 @@ export default class MusicCard extends Vue {
   overflow: hidden;
   margin-right: 1rem;
   position: relative;
+
+  // @media screen and (max-width: 768px) {
+  //   min-height: 10rem;
+  //   max-height: 10rem;
+  // }
 
   &:hover {
     & img {
@@ -87,6 +91,10 @@ export default class MusicCard extends Vue {
       overflow: hidden;
       border-radius: 0.5rem;
       position: relative;
+
+      @media screen and (max-width: 768px) {
+        height: 200px;
+      }
 
       & img {
         width: 100%;
@@ -137,7 +145,7 @@ export default class MusicCard extends Vue {
     p {
       color: #dbdbdb;
       font-size: 0.9rem;
-      font-family: "Inter", sans-serif;
+      font-family: 'Inter', sans-serif;
     }
   }
 }

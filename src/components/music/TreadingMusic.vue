@@ -14,12 +14,12 @@
         <music-card :loading="true" />
       </template>
     </b-carousel-list>
-    <b-carousel-list v-else :data="music.tracks" :items-to-show="6">
+    <b-carousel-list v-else :data="music.tracks" v-bind="al">
       <template slot="item" slot-scope="track">
         <music-card
           :title="track.title"
           :imageUrl="track.album.cover_medium"
-          :id="track.artist.id"
+          :id="track.id"
           :artist="track.artist.name"
           @getSelectedTrack="getSelectedTrack"
         />
@@ -30,8 +30,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { createNamespacedHelpers } from "vuex";
-const { mapMutations } = createNamespacedHelpers("music");
+import { mapMutations } from "vuex";
 
 // Components imports
 import Heading from "@/components/layouts/Heading.vue";
@@ -44,8 +43,8 @@ import MusicCard from "@/components/music/MusicCard.vue";
   },
   methods: {
     ...mapMutations({
-      setSelectedPlaylist: "setSelectedPlaylist",
-      setSelectedTrack: "setSelectedTrack",
+      setSelectedPlaylist: "music/setSelectedPlaylist",
+      setSelectedTrack: "music/setSelectedTrack",
     }),
   },
 })
@@ -55,16 +54,31 @@ export default class TreadingMusic extends Vue {
   })
   music: any;
   @Prop(Boolean) isLoading!: boolean;
-
   items = [{}, {}, {}, {}, {}, {}];
+  setSelectedPlaylist: any;
+  setSelectedTrack: any;
+  al = {
+    itemsToShow: 2,
+    breakpoints: {
+      768: {
+        itemsToShow: 4,
+      },
+      1200: {
+        itemsToShow: 5,
+      },
+      1500: {
+        itemsToShow: 6,
+      },
+    },
+  };
 
   getSelectedTrack(trackId: any) {
     const [selectedTrack] = this.music.tracks.filter(
-      (track: any) => track.artist.id === trackId
+      (track: any) => track.id === trackId
     );
-    const playList = this.music.tracks;
+    const { tracks } = this.music;
+    this.setSelectedPlaylist(tracks);
     this.setSelectedTrack(selectedTrack);
-    this.setSelectedPlaylist(playList);
   }
 }
 </script>

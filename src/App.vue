@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <error-modal />
     <Navbar />
     <Wrapper>
       <router-view />
@@ -12,11 +13,13 @@ import { Component, Vue } from "vue-property-decorator";
 
 import Wrapper from "@/components/layouts/Wrapper.vue";
 import Navbar from "@/components/Navbar.vue";
+import ErrorModal from "./components/layouts/ErrorModal.vue";
 
 @Component({
   components: {
     Wrapper,
     Navbar,
+    ErrorModal,
   },
 })
 export default class App extends Vue {}

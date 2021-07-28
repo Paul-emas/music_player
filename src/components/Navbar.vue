@@ -2,27 +2,20 @@
   <nav class="navbar">
     <div class="navbar__logo">
       <router-link to="/">
-        <img
-          src="../assets/logo.png"
-          alt="Paul Music player"
-          class="navbar__logo--img"
-        />
+        <img src="../assets/logo.png" alt="Paul Music player" class="navbar__logo--img" />
       </router-link>
     </div>
     <search />
     <div class="navbar__profile">
       <b-icon pack="fa" icon="bell" size="is-medium"> </b-icon>
-      <img
-        src="https://avatars.githubusercontent.com/u/43655423?v=4"
-        alt="User profile image"
-      />
+      <img src="../assets/Profile.jpg" alt="User profile image" />
     </div>
   </nav>
 </template>
 
 <script>
-import { Vue, Prop, Component } from "vue-property-decorator";
-import Search from "./Search.vue";
+import { Vue, Prop, Component } from 'vue-property-decorator';
+import Search from './Search.vue';
 
 @Component({
   components: {
@@ -60,6 +53,10 @@ export default class Navbar extends Vue {}
 
     & .fa-bell {
       margin-top: 1rem;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
     }
 
     & img {
@@ -69,6 +66,7 @@ export default class Navbar extends Vue {}
       border-radius: 50%;
       padding: 0.2rem;
       margin-left: 0.5rem;
+      border: 1px solid #fa8072;
       background: linear-gradient(to right, #c02a5f, #3360a0);
     }
   }

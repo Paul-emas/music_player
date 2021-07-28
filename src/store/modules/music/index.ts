@@ -10,13 +10,14 @@ const getters: GetterTree<typeof state, any> = {
   isLoading: (state) => state.loading,
   selectedPlaylist: (state) => state.selectedPlayist,
   selectedTrack: (state) => state.selectedTrack,
+  error: (state) => state.errorMessage,
 };
 
 const actions: ActionTree<typeof state, any> = {
   getTrendingPlaylist({ commit }) {
     return new Promise((resolve, reject) => {
       https
-        .get('/playlist/9063313782')
+        .get('/playlist/7676842822')
         .then(({ data }) => {
           if (!data.error) {
             resolve(data);
@@ -26,7 +27,7 @@ const actions: ActionTree<typeof state, any> = {
         .catch((err) => {
           reject(err);
           console.log(err);
-          commit('errorMessage', err.message);
+          commit('errorMessage', true);
         });
     });
   },
@@ -45,7 +46,7 @@ const actions: ActionTree<typeof state, any> = {
         .catch((err) => {
           reject(err);
           console.log(err);
-          commit('errorMessage', err.message);
+          commit('errorMessage', true);
         });
     });
   },
@@ -64,7 +65,25 @@ const actions: ActionTree<typeof state, any> = {
         .catch((err) => {
           reject(err);
           console.log(err);
-          commit('errorMessage', err.message);
+          commit('errorMessage', true);
+        });
+    });
+  },
+
+  searchMusic({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      https
+        .get('/search', { params: { q: payload } })
+        .then(({ data }) => {
+          if (!data.error) {
+            resolve(data);
+            commit('setSelectedPlaylist', data);
+          }
+        })
+        .catch((err) => {
+          reject(err);
+          console.log(err);
+          commit('errorMessage', true);
         });
     });
   },
@@ -78,6 +97,7 @@ const mutations: MutationTree<typeof state> = {
   setLoading: (state, payload) => (state.loading = payload),
   setSelectedPlaylist: (state, payload) => (state.selectedPlayist = payload),
   setSelectedTrack: (state, payload) => (state.selectedTrack = payload),
+  errorMessage: (state, payload) => (state.errorMessage = payload),
 };
 
 export default {
