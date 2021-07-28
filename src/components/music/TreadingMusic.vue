@@ -1,15 +1,10 @@
 <template>
   <div class="app__treading">
     <heading>
-      <b-skeleton
-        :active="isLoading"
-        width="30%"
-        height="50px"
-        :animated="true"
-      ></b-skeleton>
+      <b-skeleton :active="isLoading" width="30%" height="50px" :animated="true"></b-skeleton>
       <slot v-if="!isLoading"></slot>
     </heading>
-    <b-carousel-list v-if="isLoading" :data="items" :items-to-show="6">
+    <b-carousel-list v-if="isLoading" :data="items" v-bind="al">
       <template slot="item">
         <music-card :loading="true" />
       </template>
@@ -29,12 +24,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { mapMutations } from "vuex";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { mapMutations } from 'vuex';
 
 // Components imports
-import Heading from "@/components/layouts/Heading.vue";
-import MusicCard from "@/components/music/MusicCard.vue";
+import Heading from '@/components/layouts/Heading.vue';
+import MusicCard from '@/components/music/MusicCard.vue';
 
 @Component({
   components: {
@@ -43,8 +38,8 @@ import MusicCard from "@/components/music/MusicCard.vue";
   },
   methods: {
     ...mapMutations({
-      setSelectedPlaylist: "music/setSelectedPlaylist",
-      setSelectedTrack: "music/setSelectedTrack",
+      setSelectedPlaylist: 'music/setSelectedPlaylist',
+      setSelectedTrack: 'music/setSelectedTrack',
     }),
   },
 })
@@ -73,9 +68,7 @@ export default class TreadingMusic extends Vue {
   };
 
   getSelectedTrack(trackId: any) {
-    const [selectedTrack] = this.music.tracks.filter(
-      (track: any) => track.id === trackId
-    );
+    const [selectedTrack] = this.music.tracks.filter((track: any) => track.id === trackId);
     const { tracks } = this.music;
     this.setSelectedPlaylist(tracks);
     this.setSelectedTrack(selectedTrack);
